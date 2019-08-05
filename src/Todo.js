@@ -5,12 +5,16 @@ class Todo extends Component{
 		super(props)
 
 	}
+  handleTodoRemoveClick = () =>{
+    var id = this.props.id;
+    this.props.removeTodo(id);
+  }
 	render(){
 
 		return (
 			<div className="todo">
         <div className="todo-body">
-          <i className="far fa-times-circle todo-remove"></i>
+          <i onClick={this.handleTodoRemoveClick} className="far fa-times-circle todo-remove"></i>
           <div className="todo-content">
             {this.props.content}
           </div>

@@ -38,7 +38,18 @@ class  App extends Component {
       todos: newList
     });
   }
-  removeTodo = (id) =>{}
+  removeTodo = (id) =>{
+    var todos = this.state.todos;
+
+    var filtered = todos.filter((todo) => {
+      return todo.id !== id;
+    });
+
+    this.setState({
+      todos: filtered
+    });
+
+  }
   updateTodo = (id,data) =>{}
 
   render(){
@@ -51,7 +62,8 @@ class  App extends Component {
                 
                 var todoProps = {
                   ...todo,
-                  key: todo.id
+                  key: todo.id,
+                  removeTodo: this.removeTodo
                 };
 
                 return (
