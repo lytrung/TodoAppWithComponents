@@ -50,7 +50,20 @@ class  App extends Component {
     });
 
   }
-  updateTodo = (id,data) =>{}
+  updateTodo = (id,data) =>{
+    var todos = this.state.todos;
+
+    var index = todos.findIndex(function(todo){
+      return todo.id == id;
+    });
+
+    var updatedTodo = {...todos[index],...data};
+
+    todos[index] = updatedTodo;
+
+    this.setState({todos:todos});
+
+  }
 
   render(){
     return (
@@ -63,7 +76,8 @@ class  App extends Component {
                 var todoProps = {
                   ...todo,
                   key: todo.id,
-                  removeTodo: this.removeTodo
+                  removeTodo: this.removeTodo,
+                  updateTodo:this.updateTodo
                 };
 
                 return (
@@ -82,3 +96,9 @@ class  App extends Component {
 }
 
 export default App;
+
+
+
+
+
+
