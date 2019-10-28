@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux'
+
 
 class Todo extends Component{
 	constructor(props){
@@ -39,5 +41,20 @@ class Todo extends Component{
 		);
 	}
 }
+function mapDispatchToProps(dispatch){
+  return {
+    removeTodo: (id) => {
+      var action = {
+        type:'REMOVE_TODO',
+        payload:id
+      }
+      dispatch(action)
+    }
+  }
+}
 
-export default Todo;
+export default connect(null,mapDispatchToProps)(Todo);
+
+
+
+
