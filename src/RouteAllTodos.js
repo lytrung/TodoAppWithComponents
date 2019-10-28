@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Todo from './Todo';
-import { Router, Link } from "@reach/router"
+import { Router, Link, navigate } from '@reach/router'
 
 
 class  RouteAllTodos extends Component {
@@ -71,7 +71,7 @@ class  RouteAllTodos extends Component {
               })
             }
             
-
+            <Link to="/add">Add new todo</Link>
           </div>
     );
   }

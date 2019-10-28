@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Router, Link, navigate } from '@reach/router'
 
 class RouteAddTodo extends Component{
 	constructor(props){
@@ -45,6 +46,8 @@ class RouteAddTodo extends Component{
 	                  <button onClick={this.handleTodoAddClick} type="submit" className="btn btn-primary todo-add">Add</button>
 	              </form>
 	            </div>
+
+	            <Link to="/">Back</Link>
 	        </div>
 		);
 	}
