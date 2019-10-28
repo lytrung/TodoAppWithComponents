@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Todo from './Todo';
+import { connect } from 'react-redux'; /* code change */
 import { Router, Link } from "@reach/router"
 
 
@@ -38,30 +39,19 @@ class  RouteAllTodos extends Component {
       todos: newList
     });
   }
-  removeTodo = (id) =>{
-    var todos = this.state.todos;
 
-    var filtered = todos.filter((todo) => {
-      return todo.id !== id;
-    });
 
-    this.setState({
-      todos: filtered
-    });
-
-  }
 
 
   render(){
     return (
           <div className="todos">
             {
-              this.state.todos.map((todo) => {
+              this.props.todos.map((todo) => {
                 
                 var todoProps = {
                   ...todo,
-                  key: todo.id,
-                  removeTodo: this.removeTodo,
+                  key: todo.id
            
                 };
 
@@ -71,13 +61,25 @@ class  RouteAllTodos extends Component {
               })
             }
             
-
+            <Link to="/add">Add</Link>
           </div>
     );
   }
 }
 
-export default RouteAllTodos;
+
+
+// start of code change
+const mapStateToProps = (state) => {
+
+
+  return { todos: state }
+};
+
+
+
+export default connect(mapStateToProps)(RouteAllTodos);
+
 
 
 

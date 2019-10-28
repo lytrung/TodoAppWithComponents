@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux'; /* code change */
+import { Router, Link,navigate } from "@reach/router"
 
 class RouteAddTodo extends Component{
 	constructor(props){
@@ -20,12 +22,14 @@ class RouteAddTodo extends Component{
 	}
 	handleTodoAddClick = (e) => {
 		e.preventDefault();
-		var data = {
+		var todo = {
+			id:Date.now(),
 			content: this.state.contentInput,
 			priority:this.state.priority
 		};
 		
-		this.props.addTodo(data);
+		this.props.addTodo(todo);
+		navigate('/')
 	}
 	render(){
 		return (
@@ -50,4 +54,19 @@ class RouteAddTodo extends Component{
 	}
 }
 
-export default RouteAddTodo;
+
+function mapDispatchToProps(dispatch) {
+    return {
+        addTodo: todo => {
+
+        	var action = {
+				type: 'ADD_TODO',
+			  	payload: todo
+			}
+
+        	dispatch(action)
+        }
+    };
+}
+
+export default connect(null,mapDispatchToProps)(RouteAddTodo)
