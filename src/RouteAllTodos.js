@@ -10,6 +10,11 @@ class  RouteAllTodos extends Component {
   
   }
 
+  handleLogoutClick = (e) =>{
+    e.preventDefault()
+    this.props.unsetUser()
+  }
+
 
   render(){
 
@@ -31,17 +36,38 @@ class  RouteAllTodos extends Component {
               })
             }
             
-            <Link to="/add">Add new todo</Link>
+            { this.props.currentUser == null ? <Link to="/login">Login</Link> : 
+              (<>
+                <Link to="/add">Add new todo</Link> | 
+                <a href="#" onClick={this.handleLogoutClick}>Logout</a>
+              </>)
+            }
+            
+            
           </div>
     );
   }
 }
 
 function mapStateToProps(state){
-  return {todos : state}
+  return {
+    todos : state.todos,
+    currentUser : state.user
+  }
 }
 
-export default connect(mapStateToProps)(RouteAllTodos) 
+function mapDispatchToProps(dispatch){
+  return {
+    unsetUser: () => {
+      var action = {
+        type:'UNSET_USER',
+      }
+      dispatch(action)
+    }
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(RouteAllTodos) 
 
 
 

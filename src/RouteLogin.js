@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Router, Link, navigate } from '@reach/router'
 import {connect} from 'react-redux'
 
-class RouteAddTodo extends Component{
+class RouteLogin extends Component{
 	constructor(props){
 		super(props)
 		this.state = {
@@ -22,14 +22,13 @@ class RouteAddTodo extends Component{
 	}
 	handleTodoAddClick = (e) => {
 		e.preventDefault();
-		var todo = {
-			id: Date.now(),
-			content: this.state.contentInput,
-			priority:this.state.priorityInput,
-			username:this.props.currentUser.username
+		var user = {
+			id: 1,
+			username: this.state.contentInput
+	
 		};
 
-		this.props.addTodo(todo)
+		this.props.setUser(user)
 		navigate('/')
 	}
 
@@ -39,12 +38,12 @@ class RouteAddTodo extends Component{
 				<div className="todo new-todo">
 	              <form className="todo-body">
 	                  <div className="form-group">
-	                    <label htmlFor="content-input">Content</label>
+	                    <label htmlFor="content-input">Username</label>
 	                    <input onChange={this.handleContentInputChange} type="text" className="form-control" id="content-input"/>
 	                  </div>
 
 	                  <div className="form-group">
-	                    <label htmlFor="priority-input">Priority</label>
+	                    <label htmlFor="priority-input">Password</label>
 	                    <input onChange={this.handlePriorityInputChange} type="text" className="form-control" id="priority-input"/>
 	                  </div>
 	            
@@ -58,26 +57,19 @@ class RouteAddTodo extends Component{
 	}
 }
 
-
-function mapStateToProps(state){
-	return {
-		currentUser: state.user
-	}
-}
-
 function mapDispatchToProps(dispatch){
 	return {
-		addTodo: (todo) => {
+		setUser: (user) => {
 			var action = {
-				type:'ADD_TODO',
-				payload:todo
+				type:'SET_USER',
+				payload:user
 			}
 			dispatch(action)
 		}
 	}
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(RouteAddTodo);
+export default connect(null,mapDispatchToProps)(RouteLogin);
 
 
 
