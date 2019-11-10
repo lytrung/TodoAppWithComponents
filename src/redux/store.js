@@ -1,6 +1,8 @@
-import {createStore,combineReducers} from 'redux'
+import {createStore,combineReducers,applyMiddleware} from 'redux'
+import thunk from 'redux-thunk';
 import todosReducer from './todosReducer' //Access to the reducers
 import userReducer from './userReducer'
+
 
 
 var rootReducer = combineReducers({
@@ -8,7 +10,7 @@ var rootReducer = combineReducers({
 	user: userReducer
 })
 //Create the store
-var store = createStore(rootReducer)
+var store = createStore(rootReducer,applyMiddleware(thunk))
 
 
 
