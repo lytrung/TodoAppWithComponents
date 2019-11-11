@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Todo from './Todo';
 import { Router, Link, navigate } from '@reach/router'
 import {connect} from 'react-redux'
-import {getTodosAction} from './redux/todosFactory';
+import todoFactory from './redux/todosFactory';
 
 class  RouteAllTodos extends Component {
   
@@ -58,7 +58,8 @@ class  RouteAllTodos extends Component {
 function mapStateToProps(state){
   return {
     todos : state.todos,
-    currentUser : state.user
+    currentUser : state.user,
+    loading : state.loading
   }
 }
 
@@ -70,8 +71,9 @@ function mapDispatchToProps(dispatch){
       }
       dispatch(action)
     },
+
     loadTodos: () => {
-      dispatch(getTodosAction())
+      dispatch(todoFactory.getTodosAction())
     }
   }
 }

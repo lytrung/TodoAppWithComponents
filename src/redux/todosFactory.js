@@ -1,99 +1,72 @@
+import api from '../API';
 
 
-import {getTodos,addTodos,deleteTodos} from '../API';
+var todoFactory = {
+	getTodosAction : () => {
+	  return dispatch => {
 
 
-var getTodosAction = () => {
-  return dispatch => {
 
-      console.log(getTodos)
-      getTodos()
-      .then(res => {
+	    dispatch({type:'SET_LOADING',payload:true})
 
+	    api.getTodos()
+	      .then(res => {
+	        var action = {
+	          type:'SET_TODOS',
+	          payload:res.data
+	        }
+	        dispatch(action);
+	        dispatch({type:'SET_LOADING',payload:false})
+	     })
 
-        var action = {
-          type:'SET_TODOS',
-          payload:res.data
-        }
-        dispatch(action);
-      })
+	  };
+	},
 
-  };
-};
+	createTodosAction : (data) => {
 
-var createTodosAction = (data) => {
-  return dispatch => {
-      addTodos(data)
-      .then(res => {
-
-
-        // var action = {
-        //   type:'ADD_TODO',
-        //   payload:res.data
-        // }
-        // dispatch(action);
-
-        dispatch(getTodosAction());
-      })
-
-  };
-};
+	  return dispatch => {
+	  		dispatch({type:'SET_LOADING',payload:true})
+	      api.addTodos(data)
+	      .then(res => {
 
 
-var deleteTodosAction = (id) => {
-  return dispatch => {
-      deleteTodos(id)
-      .then(res => {
+	        // var action = {
+	        //   type:'ADD_TODO',
+	        //   payload:res.data
+	        // }
+	        // dispatch(action);
+
+	        dispatch(todoFactory.getTodosAction());
+	        dispatch({type:'SET_LOADING',payload:false})
+	      })
+
+	  };
+	},
 
 
-        // var action = {
-        //   type:'ADD_TODO',
-        //   payload:res.data
-        // }
-        // dispatch(action);
+	deleteTodosAction : (id) => {
 
-        dispatch(getTodosAction());
-      })
-
-  };
-};
-
-export {getTodosAction,createTodosAction,deleteTodosAction};
+		
+	  return dispatch => {
+	  		dispatch({type:'SET_LOADING',payload:true})
+	      api.deleteTodos(id)
+	      .then(res => {
 
 
-// export const addTodo = ({ title, userId }) => {
-//   return dispatch => {
-//     dispatch(addTodoStarted());
+	        // var action = {
+	        //   type:'ADD_TODO',
+	        //   payload:res.data
+	        // }
+	        // dispatch(action);
 
-//     axios
-//       .post(`https://jsonplaceholder.typicode.com/todos`, {
-//         title,
-//         userId,
-//         completed: false
-//       })
-//       .then(res => {
-//         dispatch(addTodoSuccess(res.data));
-//       })
-//       .catch(err => {
-//         dispatch(addTodoFailure(err.message));
-//       });
-//   };
-// };
+	        dispatch(todoFactory.getTodosAction());
 
-// const addTodoSuccess = todo => ({
-//   type: ADD_TODO_SUCCESS,
-//   payload: {
-//     ...todo
-//   }
-// });
+	        dispatch({type:'SET_LOADING',payload:false})
+	      })
 
-// const addTodoStarted = () => ({
-//   type: ADD_TODO_STARTED
-// });
+	  };
+	},
+}
 
-// const addTodoFailure = error => ({
-//   type: ADD_TODO_FAILURE,
-//   payload: {
-//     error
-//   }
-// });
+export default todoFactory;
+

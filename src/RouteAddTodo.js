@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Router, Link, navigate } from '@reach/router'
 import {connect} from 'react-redux'
-import {createTodosAction} from './redux/todosFactory';
+import todoFactory from './redux/todosFactory';
 
 class RouteAddTodo extends Component{
 	constructor(props){
@@ -77,7 +77,7 @@ function mapDispatchToProps(dispatch){
 		// },
 
 		createTodo: (data) => {
-			dispatch(createTodosAction(data))
+			dispatch(todoFactory.createTodosAction(data))
 		}
 	}
 }

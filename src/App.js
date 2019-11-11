@@ -4,6 +4,7 @@ import RouteAllTodos from './RouteAllTodos';
 import RouteAddTodo from './RouteAddTodo';
 import RouteLogin from './RouteLogin';
 import './App.css'
+import {connect} from 'react-redux'
 
 class  App extends Component {
   
@@ -16,6 +17,7 @@ class  App extends Component {
     return (
 
       <div className="wrap">
+        <div className={this.props.loading ? 'loading true' : 'loading'}>Loading...</div>
         <div className="container">
 
         <Router>
@@ -31,7 +33,19 @@ class  App extends Component {
   }
 }
 
-export default App;
+
+function mapStateToProps(state){
+  return {
+
+    loading : state.loading
+  }
+}
+
+
+
+export default connect(mapStateToProps)(App) 
+
+
 
 
 
