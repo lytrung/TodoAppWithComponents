@@ -22,7 +22,7 @@ var deleteTodos = (id) => {
 
 
 
-export {serverUrl,getTodos, addTodos,,deleteTodos}
+export {serverUrl,getTodos,addTodos,deleteTodos}
 
 
 

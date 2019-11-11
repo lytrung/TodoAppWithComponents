@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
+import {deleteTodosAction} from './redux/todosFactory';
 
 
 class Todo extends Component{
@@ -44,12 +45,16 @@ class Todo extends Component{
 
 function mapDispatchToProps(dispatch){
   return {
+    // removeTodo: (id) => {
+    //   var action = {
+    //     type:'REMOVE_TODO',
+    //     payload:id
+    //   }
+    //   dispatch(action)
+    // },
+
     removeTodo: (id) => {
-      var action = {
-        type:'REMOVE_TODO',
-        payload:id
-      }
-      dispatch(action)
+      dispatch(deleteTodosAction(id))
     }
   }
 }

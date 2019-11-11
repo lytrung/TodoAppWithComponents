@@ -43,6 +43,9 @@ function todosReducer(state = initialState,action){
 	     	return todo.id !== id;
 	    })
 
+	}else if (action.type == 'SET_TODOS'){
+		return [...action.payload]
+
 	}else{
 		//do nothing
 		return state
