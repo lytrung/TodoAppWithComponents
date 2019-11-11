@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Router, Link, navigate } from '@reach/router'
 import {connect} from 'react-redux'
+import todosFactory from './redux/todosFactory'
 
 class RouteAddTodo extends Component{
 	constructor(props){
@@ -23,7 +24,6 @@ class RouteAddTodo extends Component{
 	handleTodoAddClick = (e) => {
 		e.preventDefault();
 		var todo = {
-			id: Date.now(),
 			content: this.state.contentInput,
 			priority:this.state.priorityInput,
 			username:this.props.currentUser.username
@@ -68,11 +68,7 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
 	return {
 		addTodo: (todo) => {
-			var action = {
-				type:'ADD_TODO',
-				payload:todo
-			}
-			dispatch(action)
+			dispatch(todosFactory.add(todo))
 		}
 	}
 }

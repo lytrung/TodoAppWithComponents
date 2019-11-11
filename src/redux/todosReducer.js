@@ -12,23 +12,7 @@
 // 	payload:4
 // }
 
-var initialState = [
-	{
-      id:1,
-      content: 'Ring Peter',
-      priority: 'Important'
-    },
-    {
-      id:2,
-      content: 'Water plants',
-      priority: 'Urgent'
-    },
-    {
-      id:3,
-      content: 'Get milk',
-      priority: 'Can wait'
-    }
-]
+var initialState = []
 //Create todosReducer - IMMUTABLE
 function todosReducer(state = initialState,action){
 
@@ -42,6 +26,10 @@ function todosReducer(state = initialState,action){
 		return state.filter((todo) => {
 	     	return todo.id !== id;
 	    })
+
+	}else if (action.type == 'SET_TODOS'){
+		//set items from state
+		return [...action.payload]
 
 	}else{
 		//do nothing

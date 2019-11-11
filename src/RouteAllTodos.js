@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Todo from './Todo';
 import { Router, Link, navigate } from '@reach/router'
 import {connect} from 'react-redux'
+import todosFactory from './redux/todosFactory'
 
 class  RouteAllTodos extends Component {
   
@@ -13,6 +14,10 @@ class  RouteAllTodos extends Component {
   handleLogoutClick = (e) =>{
     e.preventDefault()
     this.props.unsetUser()
+  }
+
+  componentDidMount(){
+    this.props.loadTodos()
   }
 
 
@@ -63,7 +68,11 @@ function mapDispatchToProps(dispatch){
         type:'UNSET_USER',
       }
       dispatch(action)
-    }
+    },
+
+    loadTodos:() => {
+      dispatch(todosFactory.load())
+    },
   }
 }
 
